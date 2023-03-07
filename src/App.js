@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import MyInput from "./MyInput";
 
 function App() {
+  const [show, setShow] = useState(false);
+  const [firstName, setFirstName] = useState("Michael");
+  const [lastName, setLastName] = useState("Burnham");
+  const [upper, setUpper] = useState(false);
+  const name = firstName + " " + lastName;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={() => setShow(!show)}>
+        {show ? "Hide form" : "Show form"}
+      </button>
+      <br />
+      <hr />
+      {show && (
+        <>
+          <label>
+            Enter your first name:{" "}
+            <MyInput
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              shouldFocus={true}
+            />
+          </label>
+          <br />
+          <br />
+          <label>
+            Enter your last name:{" "}
+            <MyInput
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              shouldFocus={false}
+            />
+          </label>
+
+          <p>
+            Hello, <b>{upper ? name.toUpperCase() : name}</b>
+          </p>
+        </>
+      )}
+    </>
   );
 }
 
